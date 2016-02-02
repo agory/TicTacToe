@@ -17,6 +17,7 @@ namespace App
     {
         private int method;
         private int[,] matrice;
+        private TicTacToe ticTacToe; 
 
         public FAccueil()
         {
@@ -53,7 +54,7 @@ namespace App
             row = (DataGridViewRow)dgv.Rows[2].Clone();
             dgv.Rows.Add(row);
 
-
+            ticTacToe = new TicTacToe(matrice);
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -67,8 +68,7 @@ namespace App
             }
 
             // Choix IA
-            TicTacToe t = new TicTacToe(matrice);
-            t.computeRecursiveChoice(matrice);
+            ticTacToe.computeRecursiveChoice();
 
             remplirTicTacToe();
         }
@@ -86,13 +86,13 @@ namespace App
                         c.FlatStyle = FlatStyle.Popup;
                         dgv.Rows[i].Cells[j].Style.BackColor = Color.Blue;
                         dgv.Rows[i].Cells[j].Style.ForeColor = Color.Blue;
-
                     }
                     else if (matrice[i, j] == -1)
                     {
                         DataGridViewButtonColumn c = (DataGridViewButtonColumn)dgv.Columns[j];
                         c.FlatStyle = FlatStyle.Popup;
                         dgv.Rows[i].Cells[j].Style.BackColor = Color.Red;
+                        dgv.Rows[i].Cells[j].Style.ForeColor = Color.Red;
                     }
                 }
             }
