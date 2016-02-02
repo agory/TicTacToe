@@ -36,6 +36,7 @@
             this.cln1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cln2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cln3 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnReset = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -62,18 +63,19 @@
             // recursifToolStripMenuItem
             // 
             this.recursifToolStripMenuItem.Name = "recursifToolStripMenuItem";
-            this.recursifToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.recursifToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.recursifToolStripMenuItem.Text = "Recursif";
+            this.recursifToolStripMenuItem.Click += new System.EventHandler(this.recursifToolStripMenuItem_Click);
             // 
             // itératifToolStripMenuItem
             // 
             this.itératifToolStripMenuItem.Name = "itératifToolStripMenuItem";
-            this.itératifToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.itératifToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.itératifToolStripMenuItem.Text = "Itératif";
+            this.itératifToolStripMenuItem.Click += new System.EventHandler(this.itératifToolStripMenuItem_Click);
             // 
             // dgv
             // 
-            this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
             this.dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -87,6 +89,8 @@
             this.dgv.Location = new System.Drawing.Point(92, 70);
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersVisible = false;
+            this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dgv.ShowEditingIcon = false;
             this.dgv.Size = new System.Drawing.Size(451, 451);
             this.dgv.TabIndex = 2;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
@@ -107,11 +111,22 @@
             this.cln3.HeaderText = "Column3";
             this.cln3.Name = "cln3";
             // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(248, 12);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(158, 36);
+            this.btnReset.TabIndex = 3;
+            this.btnReset.Text = "Reset le jeu (pleutre !)";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // FAccueil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(737, 560);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -136,6 +151,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn cln1;
         private System.Windows.Forms.DataGridViewButtonColumn cln2;
         private System.Windows.Forms.DataGridViewButtonColumn cln3;
+        private System.Windows.Forms.Button btnReset;
     }
 }
 

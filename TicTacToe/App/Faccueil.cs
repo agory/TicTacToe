@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Model;
+
+
 namespace App
 {
     public partial class FAccueil : Form
@@ -41,10 +44,16 @@ namespace App
                      matrice[i, j] = 0;
                 }
             }
+
+            TicTacToe t = new TicTacToe(matrice);
+            t.computeRecursiveChoice(matrice);
+
             // Initialise l'affichage du TicTacToe
             DataGridViewRow row = (DataGridViewRow)dgv.Rows[0].Clone();
             dgv.Rows.Add(row);
             row = (DataGridViewRow)dgv.Rows[1].Clone();
+            dgv.Rows.Add(row);
+            row = (DataGridViewRow)dgv.Rows[2].Clone();
             dgv.Rows.Add(row);
 
 
@@ -52,10 +61,18 @@ namespace App
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int j = e.ColumnIndex;
+            int i = e.RowIndex;
 
+            if (matrice[i, j] == 0)
+            {
+                matrice[i, j] = 1;
+            }
+
+            remplirTicTacToe();
         }
 
-        private void remplirTicTacToe(int[,] matrice)
+        private void remplirTicTacToe()
         {
             // Remplit la matrice de 0
             for (int i = 0; i <= 2; i++)
@@ -64,11 +81,17 @@ namespace App
                 {
                     if (matrice[i, j] == 1)
                     {
-                        dgv.Rows[i].Cells[j].Style.BackColor = Color.Red;
-                    }
-                    else if (matrice[i, j] == 2)
-                    {
+                        DataGridViewButtonColumn c = (DataGridViewButtonColumn)dgv.Columns[j];
+                        c.FlatStyle = FlatStyle.Popup;
                         dgv.Rows[i].Cells[j].Style.BackColor = Color.Blue;
+                        dgv.Rows[i].Cells[j].Style.ForeColor = Color.Blue;
+
+                    }
+                    else if (matrice[i, j] == -1)
+                    {
+                        DataGridViewButtonColumn c = (DataGridViewButtonColumn)dgv.Columns[j];
+                        c.FlatStyle = FlatStyle.Popup;
+                        dgv.Rows[i].Cells[j].Style.BackColor = Color.Red;
                     }
                 }
             }
@@ -92,6 +115,46 @@ namespace App
                     e.Graphics.DrawRectangle(myPen, rect);
                 }
             }
+        }
+
+        private void recursifToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            method = 2;
+        }
+
+        private void itératifToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            method = 1;
+        }
+
+        private void resetJeu()
+        {
+            // Remplit la matrice de 0
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    matrice[i, j] = 0;
+                }
+            }
+
+            // Supprime les lignes
+            // ajoute les lignes
+            dgv.Rows.RemoveAt(0);
+            dgv.Rows.Add();
+            dgv.Rows.RemoveAt(0);
+            dgv.Rows.Add();
+            dgv.Rows.RemoveAt(0);
+            dgv.Rows.Add();
+
+            dgv.Rows[0].Height = 150;
+            dgv.Rows[1].Height = 150;
+            dgv.Rows[2].Height = 150;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            resetJeu();
         }
     }
 }
