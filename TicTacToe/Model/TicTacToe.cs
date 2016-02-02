@@ -26,14 +26,14 @@ namespace Model
             }
             if (winner == 0) {
                 if ((matrix[0, 0] == matrix[1, 1] && matrix[2, 2] == matrix[1, 1]) ||
-                   (matrix[3, 0] == matrix[1, 1] && matrix[1, 1] == matrix[0, 2]))
+                   (matrix[2, 0] == matrix[1, 1] && matrix[1, 1] == matrix[0, 2]))
                 {
                     winner = matrix[1, 1];
                 }
             }
             return winner;
         }
-        
+       
 
         public int minimax(int[,] matrix, int joueur)
         {
