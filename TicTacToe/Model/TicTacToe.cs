@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    class TicTacToe
+    public   class TicTacToe
     {
         private int[,] matrix;
 
@@ -14,16 +14,6 @@ namespace Model
             this.matrix = matrix;
         }
 
-        public Boolean computeRecursiveChoice(int[,] matrix,int x, int y) {
-            if (matrix[1, 1] == 0)
-            {
-                matrix[1, 1] = 2;
-            }
-            else {
-                  
-            }
-            return true;
-        }
 
         private int computeWin(int[,] matrix) {
             int winner = 0;
@@ -44,5 +34,61 @@ namespace Model
             return winner;
         }
         
+
+        public int minimax(int[,] matrix, int joueur)
+        {
+            int resultat, i, j, resultat_coup, coups_possibles = 0;
+            resultat = computeWin(matrix);
+            if (resultat == 0)
+            {
+                resultat = -joueur; /* pire cas */
+                for (i = 0; i < 3; i = i + 1)
+                {
+                    for (j = 0; j < 3; j = j + 1)
+                    {
+                        if (matrix[i,j] == 0)
+                        {
+                            matrix[i,j] = joueur; /* coup "virtuel" */
+                            resultat_coup = minimax(matrix, -joueur); /* appel récursif */
+                            matrix[i,j] = 0; /* retour arrière */
+                            coups_possibles = 1;
+                            if (resultat_coup * joueur > resultat * joueur)
+                            {
+                                resultat = resultat_coup;
+                            }
+                        }
+                    }
+                }
+                if (coups_possibles == 0) resultat = 0; /* jeu bloqué = match nul */
+            }
+            return resultat;
+        }
+
+        public void computeRecursiveChoice(int[,] matrix)
+        {
+            int joueur = -1;
+            int resultat, i, j, resultat_coup, i_mieux = 0, j_mieux = 0;
+            resultat = -2 * joueur; /* pour être sur de mémoriser au moins un coup */
+            for (i = 0; i < 3; i = i + 1)
+            {
+                for (j = 0; j < 3; j = j + 1)
+                {
+                    if (matrix[i,j] == 0)
+                    {
+                        matrix[i,j] = joueur; /* coup "virtuel" */
+                        resultat_coup = minimax(matrix, -joueur); /* calcul score */
+                        matrix[i,j] = 0; /* retour arrière */
+                        if (resultat_coup * joueur > resultat * joueur)
+                        {
+                            resultat = resultat_coup;
+                            i_mieux = i;
+                            j_mieux = j;
+                        }
+                    }
+                }
+            }
+            matrix[i_mieux,j_mieux] = joueur;
+        }
+
     }
 }
