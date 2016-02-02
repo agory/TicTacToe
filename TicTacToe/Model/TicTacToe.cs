@@ -14,14 +14,15 @@ namespace Model
             this.matrix = matrix;
         }
 
-        public void computeRecursiveChoice() {
+        public Boolean computeRecursiveChoice(int[,] matrix,int x, int y) {
             if (matrix[1, 1] == 0)
             {
                 matrix[1, 1] = 2;
             }
             else {
-                
+                  
             }
+            return true;
         }
 
         private int computeWin(int[,] matrix) {
