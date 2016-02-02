@@ -14,7 +14,13 @@ namespace Model
             this.matrix = matrix;
         }
 
-
+        /// <summary>
+        /// Return the int of Winner
+        /// -1 : Computer Win
+        /// 0  : Egality
+        /// 1  : Player Win
+        /// </summary>
+        /// <returns>int</returns>
         public int computeWin() {
             int winner = 0;
             for (int i = 0; i < 3; i++) {
@@ -35,59 +41,62 @@ namespace Model
         }
        
 
-        private int minimax(int joueur)
+        private int minimax(int player)
         {
-            int resultat, i, j, resultat_coup, coups_possibles = 0;
+            int resultat, i, j, result_move, possible_move = 0;
             resultat = computeWin();
             if (resultat == 0)
             {
-                resultat = -joueur; /* pire cas */
+                resultat = -player;
                 for (i = 0; i < 3; i = i + 1)
                 {
                     for (j = 0; j < 3; j = j + 1)
                     {
                         if (matrix[i,j] == 0)
                         {
-                            matrix[i,j] = joueur; /* coup "virtuel" */
-                            resultat_coup = minimax(-joueur); /* appel récursif */
-                            matrix[i,j] = 0; /* retour arrière */
-                            coups_possibles = 1;
-                            if (resultat_coup * joueur > resultat * joueur)
+                            matrix[i,j] = player; // coup d'avance 
+                            result_move = minimax(-player); 
+                            matrix[i,j] = 0; // annulation coup d'avance 
+                            possible_move = 1;
+                            if (result_move * player > resultat * player)
                             {
-                                resultat = resultat_coup;
+                                resultat = result_move;
                             }
                         }
                     }
                 }
-                if (coups_possibles == 0) resultat = 0; /* jeu bloqué = match nul */
+                if (possible_move == 0) resultat = 0; // jeu bloqué = match nul 
             }
             return resultat;
         }
 
+        /// <summary>
+        /// Compute the next play of computer with algo recursive minimax 
+        /// </summary>
         public void computeRecursiveChoice()
         {
-            int joueur = -1;
-            int resultat, i, j, resultat_coup, i_mieux = 0, j_mieux = 0;
-            resultat = -2 * joueur; /* pour être sur de mémoriser au moins un coup */
+            int player = -1;
+            int resultat, i, j, result_move, better_i = 0, better_j = 0;
+            resultat = -2 * player;
             for (i = 0; i < 3; i = i + 1)
             {
                 for (j = 0; j < 3; j = j + 1)
                 {
                     if (matrix[i,j] == 0)
                     {
-                        matrix[i,j] = joueur; /* coup "virtuel" */
-                        resultat_coup = minimax(-joueur); /* calcul score */
-                        matrix[i,j] = 0; /* retour arrière */
-                        if (resultat_coup * joueur > resultat * joueur)
+                        matrix[i,j] = player; // coup d'avance 
+                        result_move = minimax(-player); // calcul score 
+                        matrix[i,j] = 0; // annulation coup d'avance 
+                        if (result_move * player > resultat * player)
                         {
-                            resultat = resultat_coup;
-                            i_mieux = i;
-                            j_mieux = j;
+                            resultat = result_move;
+                            better_i = i;
+                            better_j = j;
                         }
                     }
                 }
             }
-            matrix[i_mieux,j_mieux] = joueur;
+            matrix[better_i,better_j] = player;
         }
 
     }

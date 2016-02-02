@@ -18,11 +18,13 @@ namespace App
         private int method;
         private int[,] matrice;
         private TicTacToe ticTacToe;
+        private int free;
 
         public FAccueil()
         {
             method = 2;
             matrice = new int[3, 3];
+            free = 9;
             InitializeComponent();
         }
 
@@ -42,7 +44,7 @@ namespace App
             {
                 for (int j = 0; j <= 2; j++)
                 {
-                     matrice[i, j] = 0;
+                    matrice[i, j] = 0;
                 }
             }
 
@@ -61,19 +63,42 @@ namespace App
         {
             int j = e.ColumnIndex;
             int i = e.RowIndex;
+            
+            dgv.ClearSelection();
 
             if (matrice[i, j] == 0)
             {
                 matrice[i, j] = 1;
-
-                // Choix IA
-                if (method == 2) ticTacToe.computeRecursiveChoice();
-                //else if (method == 1) ticTacToe.computeIterativeChoice;
-
+                free--;
+                if (free > 0 && ticTacToe.computeWin() == 0)
+                {
+                    // Choix IA
+                    if (method == 2) ticTacToe.computeRecursiveChoice();
+                    //else if (method == 1) ticTacToe.computeIterativeChoice;
+                    free--;
+                }
                 remplirTicTacToe();
-
-               // if (ticTacToe.computeWin()) Console.
+                winnerIs();
+                // if (ticTacToe.computeWin()) Console.
             }
+        }
+
+        private void winnerIs(){
+            int winner = ticTacToe.computeWin();
+            if (winner == 0 && free == 0) {
+                lb_result.Text = "Egalité";
+                resetJeu();
+            } else if (winner == 1) {
+                lb_result.Text = "Victoire";
+                resetJeu();
+            } else if (winner == -1) {
+                lb_result.Text = "Perdu";
+                resetJeu();
+            } else
+            {
+                lb_result.Text = "";
+            }
+
         }
 
         private void remplirTicTacToe()
@@ -83,6 +108,7 @@ namespace App
             {
                 for (int j = 0; j <= 2; j++)
                 {
+
                     if (matrice[i, j] == 1)
                     {
                         DataGridViewButtonColumn c = (DataGridViewButtonColumn)dgv.Columns[j];
@@ -133,6 +159,7 @@ namespace App
 
         private void resetJeu()
         {
+            free = 9;
             // Remplit la matrice de 0
             for (int i = 0; i <= 2; i++)
             {
@@ -154,6 +181,7 @@ namespace App
             dgv.Rows[0].Height = 150;
             dgv.Rows[1].Height = 150;
             dgv.Rows[2].Height = 150;
+            dgv.ClearSelection();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
