@@ -45,9 +45,6 @@ namespace App
                 }
             }
 
-            TicTacToe t = new TicTacToe(matrice);
-            t.computeRecursiveChoice(matrice);
-
             // Initialise l'affichage du TicTacToe
             DataGridViewRow row = (DataGridViewRow)dgv.Rows[0].Clone();
             dgv.Rows.Add(row);
@@ -68,6 +65,10 @@ namespace App
             {
                 matrice[i, j] = 1;
             }
+
+            // Choix IA
+            TicTacToe t = new TicTacToe(matrice);
+            t.computeRecursiveChoice(matrice);
 
             remplirTicTacToe();
         }
