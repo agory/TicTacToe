@@ -17,11 +17,11 @@ namespace App
     {
         private int method;
         private int[,] matrice;
-        private TicTacToe ticTacToe; 
+        private TicTacToe ticTacToe;
 
         public FAccueil()
         {
-            method = 0;
+            method = 2;
             matrice = new int[3, 3];
             InitializeComponent();
         }
@@ -65,12 +65,15 @@ namespace App
             if (matrice[i, j] == 0)
             {
                 matrice[i, j] = 1;
+
+                // Choix IA
+                if (method == 2) ticTacToe.computeRecursiveChoice();
+                //else if (method == 1) ticTacToe.computeIterativeChoice;
+
+                remplirTicTacToe();
+
+               // if (ticTacToe.computeWin()) Console.
             }
-
-            // Choix IA
-            ticTacToe.computeRecursiveChoice();
-
-            remplirTicTacToe();
         }
 
         private void remplirTicTacToe()
