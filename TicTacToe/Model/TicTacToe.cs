@@ -15,7 +15,7 @@ namespace Model
         }
 
 
-        private int computeWin(int[,] matrix) {
+        private int computeWin() {
             int winner = 0;
             for (int i = 0; i < 3; i++) {
                 if ((matrix[i, 0] == matrix[i, 1] && matrix[i, 0] == matrix[i, 2]) ||
@@ -35,10 +35,10 @@ namespace Model
         }
        
 
-        public int minimax(int[,] matrix, int joueur)
+        public int minimax(int joueur)
         {
             int resultat, i, j, resultat_coup, coups_possibles = 0;
-            resultat = computeWin(matrix);
+            resultat = computeWin();
             if (resultat == 0)
             {
                 resultat = -joueur; /* pire cas */
@@ -49,7 +49,7 @@ namespace Model
                         if (matrix[i,j] == 0)
                         {
                             matrix[i,j] = joueur; /* coup "virtuel" */
-                            resultat_coup = minimax(matrix, -joueur); /* appel récursif */
+                            resultat_coup = minimax(-joueur); /* appel récursif */
                             matrix[i,j] = 0; /* retour arrière */
                             coups_possibles = 1;
                             if (resultat_coup * joueur > resultat * joueur)
@@ -64,7 +64,7 @@ namespace Model
             return resultat;
         }
 
-        public void computeRecursiveChoice(int[,] matrix)
+        public void computeRecursiveChoice()
         {
             int joueur = -1;
             int resultat, i, j, resultat_coup, i_mieux = 0, j_mieux = 0;
@@ -76,7 +76,7 @@ namespace Model
                     if (matrix[i,j] == 0)
                     {
                         matrix[i,j] = joueur; /* coup "virtuel" */
-                        resultat_coup = minimax(matrix, -joueur); /* calcul score */
+                        resultat_coup = minimax(-joueur); /* calcul score */
                         matrix[i,j] = 0; /* retour arrière */
                         if (resultat_coup * joueur > resultat * joueur)
                         {
