@@ -15,7 +15,7 @@ namespace Model
         }
 
 
-        private int computeWin() {
+        public int computeWin() {
             int winner = 0;
             for (int i = 0; i < 3; i++) {
                 if ((matrix[i, 0] == matrix[i, 1] && matrix[i, 0] == matrix[i, 2]) ||
@@ -35,7 +35,7 @@ namespace Model
         }
        
 
-        public int minimax(int joueur)
+        private int minimax(int joueur)
         {
             int resultat, i, j, resultat_coup, coups_possibles = 0;
             resultat = computeWin();
