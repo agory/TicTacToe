@@ -24,8 +24,6 @@ namespace App
 
         private void FAccueil_Load(object sender, EventArgs e)
         {
-            // Interdit la modification du dgv
-            dgv.ReadOnly = true;
             // ajuste la taille des cases
             // Hauteur
             dgv.Rows[0].Height = 150;
@@ -43,20 +41,37 @@ namespace App
                      matrice[i, j] = 0;
                 }
             }
+            // Initialise l'affichage du TicTacToe
+            DataGridViewRow row = (DataGridViewRow)dgv.Rows[0].Clone();
+            dgv.Rows.Add(row);
+            row = (DataGridViewRow)dgv.Rows[1].Clone();
+            dgv.Rows.Add(row);
 
-
-        }
-
-        private void recursif() {
-
-        }
-        private void iteratif()
-        {
 
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void remplirTicTacToe(int[,] matrice)
+        {
+            // Remplit la matrice de 0
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    if (matrice[i, j] == 1)
+                    {
+                        dgv.Rows[i].Cells[j].Style.BackColor = Color.Red;
+                    }
+                    else if (matrice[i, j] == 2)
+                    {
+                        dgv.Rows[i].Cells[j].Style.BackColor = Color.Blue;
+                    }
+                }
+            }
 
         }
 
