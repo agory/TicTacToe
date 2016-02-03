@@ -130,11 +130,13 @@
             // lb_result
             // 
             this.lb_result.AutoSize = true;
-            this.lb_result.Location = new System.Drawing.Point(195, 39);
+            this.lb_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold);
+            this.lb_result.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lb_result.Location = new System.Drawing.Point(272, 38);
             this.lb_result.Name = "lb_result";
-            this.lb_result.Size = new System.Drawing.Size(35, 13);
+            this.lb_result.Size = new System.Drawing.Size(47, 22);
             this.lb_result.TabIndex = 4;
-            this.lb_result.Text = "label1";
+            this.lb_result.Text = "yolo";
             // 
             // FAccueil
             // 
