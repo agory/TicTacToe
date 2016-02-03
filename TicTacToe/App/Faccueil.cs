@@ -74,7 +74,7 @@ namespace App
                 {
                     // Choix IA
                     if (method == 2) ticTacToe.computeRecursiveChoice();
-                    //else if (method == 1) ticTacToe.computeIterativeChoice;
+                    else if (method == 1) ticTacToe.computeIterativeChoice();
                     free--;
                 }
                 remplirTicTacToe();

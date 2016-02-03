@@ -99,5 +99,57 @@ namespace Model
             matrix[better_i,better_j] = player;
         }
 
+        /// <summary>
+        /// Compute the next play of computer with algo iterative 
+        /// </summary>
+        public void computeIterativeChoice()
+        {
+            int computer = -1;
+            int better_i = 0, better_j = 0;
+
+            // center case
+            if (matrix[1, 1] == 0) {
+                better_i = 1;
+                better_j = 1;
+            }
+            else {
+                int nbOccupied = nbCaseOccupied();
+                if (nbOccupied == 3) // 2nd movement for the computer
+                {
+                    // Case where the center is surr
+                    if (matrix[0,0] == 1 && matrix[2,2] == 1)
+                    {
+                        better_i = 0;
+                        better_j = 1;
+                    }
+                    else if (matrix[0, 2] == 1 && matrix[2, 0] == 1)
+                    {
+                        better_i = 0;
+                        better_j = 1;
+                    }
+                }
+            }
+
+            
+            matrix[better_i, better_j] = computer;
+        }
+
+        private int nbCaseOccupied()
+        {
+            int res = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (matrix[i, j] == 1 || matrix[i, j] == -1)
+                    {
+                        res += 1;
+                    }
+                }
+            }
+
+            return res;
+        }
+
     }
 }
