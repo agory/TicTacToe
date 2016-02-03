@@ -106,71 +106,23 @@ namespace Model
         {
             int computer = -1;
             int better_i = 0, better_j = 0;
+            bool trouve = false;
 
-            // center case
-            if (matrix[1, 1] == 0)
+            // test if a row can win or loose
+            int score;
+            for (int i = 0; i < 3; i++)
             {
-                better_i = 1;
-                better_j = 1;
-            }
-            else {
-                // test if a row can win or loose
-                int score;
-                for (int i = 0; i < 3; i++)
-                {
-                    score = 0;
-                    for (int j = 0; j < 3; j++)
-                    {
-                        score += matrix[i, j];
-                    }
-
-                    if (score == -2 || score == 2)
-                    {
-                        for (int j = 0; j < 3; j++)
-                        {
-                            if (matrix[i, j] == 0)
-                            {
-                                better_i = i;
-                                better_j = j;
-                            }
-                        }
-                    }
-                }
-
-                // test if a column can win or loose
+                score = 0;
                 for (int j = 0; j < 3; j++)
                 {
-                    score = 0;
-                    for (int i = 0; i < 3; i++)
-                    {
-                        score += matrix[i, j];
-                    }
-
-                    if (score == -2 || score == 2)
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            if (matrix[i, j] == 0)
-                            {
-                                better_i = i;
-                                better_j = j;
-                            }
-                        }
-                    }
-                }
-
-                // test if diagonal 1 can win or loose
-                score = 0;
-                for (int i = 0; i < 3; i++)
-                {
-                    int j = i;
                     score += matrix[i, j];
                 }
+
                 if (score == -2 || score == 2)
                 {
-                    for (int i = 0; i < 3; i++)
+                    trouve = true;
+                    for (int j = 0; j < 3; j++)
                     {
-                        int j = i;
                         if (matrix[i, j] == 0)
                         {
                             better_i = i;
@@ -178,29 +130,82 @@ namespace Model
                         }
                     }
                 }
+            }
 
-                // test if diagonal 2 can win or loose
+            // test if a column can win or loose
+            for (int j = 0; j < 3; j++)
+            {
                 score = 0;
-                int k = 2; // k is j
                 for (int i = 0; i < 3; i++)
                 {
-                    score += matrix[i, k];
-                    k--;
-                }
-                if (score == -2 || score == 2)
-                {
-                    k = 2;
-                    for (int i = 0; i < 3; i++)
-                    {
-                        if (matrix[i, k] == 0)
-                        {
-                            better_i = i;
-                            better_j = k;
-                        }
-                        k--;
-                    }
+                    score += matrix[i, j];
                 }
 
+                if (score == -2 || score == 2)
+                {
+                    trouve = true;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (matrix[i, j] == 0)
+                        {
+                            better_i = i;
+                            better_j = j;
+                        }
+                    }
+                }
+            }
+
+            // test if diagonal 1 can win or loose
+            score = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                int j = i;
+                score += matrix[i, j];
+            }
+            if (score == -2 || score == 2)
+            {
+                trouve = true;
+                for (int i = 0; i < 3; i++)
+                {
+                    int j = i;
+                    if (matrix[i, j] == 0)
+                    {
+                        better_i = i;
+                        better_j = j;
+                    }
+                }
+            }
+
+            // test if diagonal 2 can win or loose
+            score = 0;
+            int k = 2; // k is j
+            for (int i = 0; i < 3; i++)
+            {
+                score += matrix[i, k];
+                k--;
+            }
+            if (score == -2 || score == 2)
+            {
+                trouve = true;
+                k = 2;
+                for (int i = 0; i < 3; i++)
+                {
+                    if (matrix[i, k] == 0)
+                    {
+                        better_i = i;
+                        better_j = k;
+                    }
+                    k--;
+                }
+            }
+
+            // center case
+            if (!trouve && matrix[1, 1] == 0)
+            {
+                better_i = 1;
+                better_j = 1;
+            }
+            else if (!trouve) {
                 // test specific scenarios
                 int nbOccupied = nbCaseOccupied();
                 if (nbOccupied == 3) // 2nd movement for the computer
