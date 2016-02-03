@@ -89,10 +89,10 @@ namespace App
                 lb_result.Text = "Egalité";
                 resetJeu();
             } else if (winner == 1) {
-                lb_result.Text = "Victoire";
+                lb_result.Text = "Victoire !";
                 resetJeu();
             } else if (winner == -1) {
-                lb_result.Text = "Perdu";
+                lb_result.Text = "Défaite !";
                 resetJeu();
             } else
             {
