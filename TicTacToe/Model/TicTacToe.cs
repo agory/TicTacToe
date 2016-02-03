@@ -176,6 +176,14 @@ namespace Model
                         better_i = 0;
                         better_j = 2;
                     }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
                 }
             }
 
