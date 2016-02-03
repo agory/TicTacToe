@@ -108,7 +108,8 @@ namespace Model
             int better_i = 0, better_j = 0;
 
             // center case
-            if (matrix[1, 1] == 0) {
+            if (matrix[1, 1] == 0)
+            {
                 better_i = 1;
                 better_j = 1;
             }
@@ -116,16 +117,64 @@ namespace Model
                 int nbOccupied = nbCaseOccupied();
                 if (nbOccupied == 3) // 2nd movement for the computer
                 {
-                    // Case where the center is surr
-                    if (matrix[0,0] == 1 && matrix[2,2] == 1)
+                    // scenario 1 and 2 correspond to the case
+                    // where the center is surrendered in the corners
+                    // scenario 1
+                    if (matrix[0, 0] == 1 && matrix[2, 2] == 1)
                     {
                         better_i = 0;
                         better_j = 1;
-                    }
+                    } // scenario 2
                     else if (matrix[0, 2] == 1 && matrix[2, 0] == 1)
                     {
                         better_i = 0;
                         better_j = 1;
+                    }
+                    // scenarios 3 4 5 and 6 correspond to the case where
+                    // the players plays in a corner and then in the middle
+                    // scenario 3
+                    else if (matrix[1, 2] == 1 && matrix[2, 0] == 1)
+                    {
+                        better_i = 2;
+                        better_j = 1;
+                    } // scenario 4
+                    else if (matrix[0, 0] == 1 && matrix[1, 2] == 1)
+                    {
+                        better_i = 0;
+                        better_j = 1;
+                    } // scenario 5
+                    else if (matrix[1, 0] == 1 && matrix[2, 2] == 1)
+                    {
+                        better_i = 2;
+                        better_j = 1;
+                    } // scenario 6
+                    else if (matrix[0, 2] == 1 && matrix[1, 0] == 1)
+                    {
+                        better_i = 0;
+                        better_j = 1;
+                    }
+                    // scenarios 7 8 9 and 10 correspond to the case where
+                    // the players plays twice in the middle
+                    // scenario 7
+                    else if (matrix[1, 0] == 1 && matrix[2, 1] == 1)
+                    {
+                        better_i = 2;
+                        better_j = 0;
+                    } // scenario 8
+                    else if (matrix[1, 2] == 1 && matrix[2, 1] == 1)
+                    {
+                        better_i = 2;
+                        better_j = 2;
+                    } // scenario 9
+                    else if (matrix[1, 0] == 1 && matrix[0, 1] == 1)
+                    {
+                        better_i = 0;
+                        better_j = 0;
+                    } // scenario 10
+                    else if (matrix[0, 1] == 1 && matrix[1, 2] == 1)
+                    {
+                        better_i = 0;
+                        better_j = 2;
                     }
                 }
             }
